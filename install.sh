@@ -39,19 +39,20 @@ if (( $EUID != 0 )); then
 fi
 
 if [ -z "$1" ]; then
-    echo "./install.sh <your_authtoken>"
+    echo "./install.sh <your_authtoken> <your_edge>"
     exit 1
 fi
 
-if [ ! -e ngrok.service ]; then
-    git clone --depth=1 https://github.com/vincenthsu/systemd-ngrok.git
-    cd systemd-ngrok
+if [ -z "$2" ]; then
+    echo "./install.sh <your_authtoken> <your_edge>"
+    exit 1
 fi
 
-cp ngrok.service /lib/systemd/system/
+cp bot-ngrok.service /lib/systemd/system/
 mkdir -p /opt/ngrok
 cp ngrok.yml /opt/ngrok
 sed -i "s/<add_your_token_here>/$1/g" /opt/ngrok/ngrok.yml
+sed -i "s/<add_your_edge_here>/$2/g" /opt/ngrok/ngrok.yml
 
 cd /opt/ngrok
 echo "Downloading ngrok for $ARCH . . ."
@@ -60,8 +61,8 @@ unzip $ARCHIVE
 rm $ARCHIVE
 chmod +x ngrok
 
-systemctl enable ngrok.service
-systemctl start ngrok.service
+systemctl enable bot-ngrok.service
+systemctl start bot-ngrok.service
 
 echo "Done installing ngrok"
 exit 0

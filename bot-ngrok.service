@@ -1,5 +1,5 @@
 [Unit]
-Description=ngrok
+Description=bot-ngrok
 After=network.target
 
 [Service]

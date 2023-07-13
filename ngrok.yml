@@ -1,9 +1,8 @@
-version: "2"
+version: 2
 authtoken: <add_your_token_here>
+region: us
 tunnels:
-    web:
-        proto: http
-        addr: 80
-    ssh:
-        proto: tcp
-        addr: 22
+  ssh:
+    labels:
+      - edge=<add_your_edge_here>
+    addr: 22

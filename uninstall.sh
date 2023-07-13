@@ -5,7 +5,7 @@ if (( $EUID != 0 )); then
     exit 1
 fi
 
-systemctl stop ngrok.service
-systemctl disable ngrok.service
-rm /lib/systemd/system/ngrok.service
+systemctl stop bot-ngrok.service
+systemctl disable bot-ngrok.service
+rm /lib/systemd/system/bot-ngrok.service
 rm -rf /opt/ngrok
